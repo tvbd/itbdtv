@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>EM Player</title>
+</head>
+
+
+
+<style>
+       iframe {
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            border: none;
+        }
+        /* Ensure the body and html take full height */
+        
+        
+    </style>
+
+
+
+<style>
+#videoFrame{display:flex;position:fixed;inset:0;z-index:99;}
+#videoFrame::before{content:'';background:var(--contentB);position:absolute;inset:0;transform:scale(2);z-index:-1}
+pre,code,footer{display:none;}
+</style>
+
+
+<body>
+
+<script>
+        // Specify the allowed domain
+        var allowedDomain = '//itbdtv.blogspot.com/';
+
+        // Function to check if the page is embedded on the allowed domain
+        function isEmbeddedOnAllowedDomain() {
+            return window.location !== window.parent.location && document.referrer.startsWith(allowedDomain);
+        }
+
+        // Function to display error message
+        function displayErrorMessage() {
+            document.body.innerHTML = '<h1>Forbidden</h1><p>This page cannot be embedded on other domains or accessed directly.</p>';
+            document.body.style.backgroundColor = 'white';
+        }
+
+        // Check if the page is embedded on the allowed domain, if not, display error message
+        if (!isEmbeddedOnAllowedDomain()) {
+            displayErrorMessage();
+        }
+    </script>
+
+
+  
+
+    <!-- iFrame to display the video -->
+    <iframe style='position:fixed;bottom:0;right:0;top:0;left:0;z-index:999;' id="videoFrame"></iframe>
+     <script>
+        // Extract the video URL from query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoUrl = urlParams.get('url'); // Get the 'url' parameter
+
+        const iframe = document.getElementById('videoFrame');
+
+        if (videoUrl) {
+            iframe.src = decodeURIComponent(videoUrl); // Set iFrame src dynamically
+
+            // Remove query parameters from the address bar
+            history.replaceState(null, null, window.location.pathname);
+        } else {
+            document.body.innerHTML = '<h1>Error!!!</h1>';
+        }
+    </script>
+
+
+ <style>.albaplayer_videos_channel{position:absolute;z-index:999;left:-60px;top:-60px;right:8px;height:0}.albaplayer_videos_channel .btnx{cursor:pointer;font-size:25px;float:left;display:block;border-radius:2px;height:20px;text-align:center;line-height:20px;text-shadow:0 1px 1px #000;color:#fff;padding:2px 0px;font-family:sans-serif;position:relative;z-index:99}.albaplayer_videos_channel .refresh{float:left}</style>
+
+<div class="albaplayer_videos_channel"><a class="btnx refresh" href="javascript:window.location.reload()" title="Refresh Player">&#8634;</a></div>   
+
+
+
+</body>
+</html>
+
